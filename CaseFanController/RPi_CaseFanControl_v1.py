@@ -1,3 +1,5 @@
+# TODO: Add Intro and code overview 
+
 import RPi.GPIO as GPIO
 import time
 import subprocess
