@@ -2,7 +2,7 @@
 
 # RPi_syncGit_Scripts_v01.sh
 
-# Make Executable: 		sudo chmod +x RPi_syncGit_Scripts_v01.sh  
+# Make Executable: 		sudo chmod +x RPi_syncGit_Scripts_v01.sh
 # Run:					sh RPi_syncGit_Scripts_v01.sh
 
 echo "Sync Scripts"
