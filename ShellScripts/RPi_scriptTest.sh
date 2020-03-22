@@ -7,3 +7,5 @@
 # sh hello-world.sh   			<---- to run
 
 echo "Hello World!"
+
+read -n 1 -s -r -p "Press any key to continue"
