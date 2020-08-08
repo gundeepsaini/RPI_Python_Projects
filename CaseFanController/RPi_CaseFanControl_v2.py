@@ -5,9 +5,9 @@ import time
 import subprocess
 
 # CPU Temperature Zones
-CPU_Temp_Warm = 45
-CPU_Temp_Hot = 55
-CPU_Temp_SuperHot = 60
+CPU_Temp_Warm = 40
+CPU_Temp_Hot = 50
+CPU_Temp_SuperHot = 55
 
 # FAN Dutycycle setpoints
 FAN_Speed0 = 0
@@ -16,7 +16,7 @@ FAN_Speed2 = 75
 FAN_Speed3 = 100
 
 # Other parameters
-SLEEP_INTERVAL = 5  # in secs - Temperature check interval
+SLEEP_INTERVAL = 30  # in secs - Temperature check interval
 FAN_Pin = 18
 FAN_State = True
 GPIO.setmode(GPIO.BCM)
