@@ -25,7 +25,8 @@ SLEEP_INTERVAL = 30  # secs - Temperature check interval
 FAN_Pin = 18
 
 # Others
-log_filename = "log_fan_controller.csv"
+log_filename = "/home/pi/Desktop/log_fan_controller.csv"
+
 
 
 def Fan_CMD(Speed_State):
@@ -66,50 +67,52 @@ def get_CPU_Temp():
 
 
 if __name__ == '__main__':
-    
-
-    # Logging - startup
+        
     try:
+        # Logging - startup
         log = open(log_filename, 'a')
-        log.write("{0};Startup-----------------------;\n".format(strftime("%Y-%m-%d %H:%M:%S")))
-    finally:
+        log.write("{0};Script Startup;\n".format(time.ctime()))
         log.close()
 
 
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setwarnings(False)
-    GPIO.setup(FAN_Pin, GPIO.OUT)    
-    PWM = GPIO.PWM(FAN_Pin, 50)  # pin, frequency
-    
-    # Always start script with fan @ 100%
-    PWM.start(100)      
-    CMD = 3
-    FAN_DutyCycle = Fan_CMD(CMD)
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setwarnings(False)
+        GPIO.setup(FAN_Pin, GPIO.OUT)    
+        PWM = GPIO.PWM(FAN_Pin, 50)  # pin, frequency
+        
+        # Always start script with fan @ 100%
+        PWM.start(100)      
+        CMD = 3
+        FAN_DutyCycle = Fan_CMD(CMD)
 
-    while True:
-        
-        CPU_Temp = int(get_CPU_Temp())
-        Last_CMD = CMD
-        
-        if CPU_Temp >= CPU_Temp_SuperHot:
-            CMD = 3
-        elif CPU_Temp >= CPU_Temp_Hot:
-            CMD = 2
-        elif CPU_Temp >= CPU_Temp_Warm:
-            CMD = 1
-        elif CPU_Temp < CPU_Temp_Warm:
-            CMD = 0
-        else:
-            # Failed to read temp or other error - turn on fan to 100%
-            CMD = 3
-        if not CMD == Last_CMD: 
-            FAN_DutyCycle = Fan_CMD(CMD)
-        print("CPU temp:", CPU_Temp, "°C", "FAN state:", CMD, "DutyCycle:", FAN_DutyCycle)
-        try:
+        while True:
+            
+            CPU_Temp = int(get_CPU_Temp())
+            Last_CMD = CMD
+            
+            if CPU_Temp >= CPU_Temp_SuperHot:
+                CMD = 3
+            elif CPU_Temp >= CPU_Temp_Hot:
+                CMD = 2
+            elif CPU_Temp >= CPU_Temp_Warm:
+                CMD = 1
+            elif CPU_Temp < CPU_Temp_Warm:
+                CMD = 0
+            else:
+                # Failed to read temp or other error - turn on fan to 100%
+                CMD = 3
+            if not CMD == Last_CMD: 
+                FAN_DutyCycle = Fan_CMD(CMD)
+            print(time.ctime(),": CPU Temp:", CPU_Temp, "°C", "FAN state:", CMD, "DutyCycle:", FAN_DutyCycle)
+            
             log = open(log_filename, 'a')
-            log.write("{0};{1};{2};\n".format(strftime("%Y-%m-%d %H:%M:%S"),CPU_Temp,FAN_DutyCycle))
-        finally:
+            log.write("{0};CPU temp;{1};DutyCycle;{2};\n".format(time.ctime(),CPU_Temp,FAN_DutyCycle))            
             log.close()
-
-        time.sleep(SLEEP_INTERVAL)
+            
+            time.sleep(SLEEP_INTERVAL)
+    
+    except:
+        print("Error in: Main")
+            
+    
 
