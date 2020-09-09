@@ -1,6 +1,6 @@
 
 # Config variables
-import Secrets_RPi.py
+from Secrets_RPi import *
 
 
 # Import Libs
@@ -29,11 +29,13 @@ def setup_notification_pb():
 def open_browser_login():   
     print(datetime.datetime.now(), "Startup")
 
-    if RPi = True:
+    if RPi == True:
+        # Use Chromium browser if platform is RPi else use Firefox
 	    from selenium import webdriver
-		driver = webdriver.Chrome('/usr/lib/chromium-browser/chromedriver')  # Optional argument, if not specified will search path.
+		driver = webdriver.Chrome('/usr/lib/chromium-browser/chromedriver') 
 	else:    
     	driver = Firefox()
+    
     driver.get(url_vfs_news)
 
     try:
@@ -48,13 +50,13 @@ def open_browser_login():
     
 # Locate the news elements and serach for New Delhi
 def search_keywords(driver):
+    import bs4
+    import re
+    
     element = WebDriverWait(driver, 600).until(EC.presence_of_element_located((By.ID, 'global-fade-in')))
     Global_news = element.get_attribute('innerHTML')
     element = WebDriverWait(driver, 600).until(EC.presence_of_element_located((By.ID, 'regional-fade-in'))) 
     Regional_news = element.get_attribute('innerHTML')
-    
-    import bs4
-    import re
 
     searched_word = 'Delhi'
 
@@ -66,14 +68,14 @@ def search_keywords(driver):
     return results1, results2
 
 
-# Write results to file
+# Write results to raw file
 def write_results_to_file(results1, results2):
     try:
-        Global_file = open("VFS_Globalnews_file.txt","w")
+        Global_file = open("File_VFS_Globalnews.txt","w")
         Global_file.write( str(results1) )
         Global_file.close()
 
-        Regional_file = open("VFS_Regionalnews_file.txt","w")
+        Regional_file = open("File_VFS_Regionalnews.txt","w")
         Regional_file.write( str(results2) )
         Regional_file.close()
     
@@ -81,18 +83,18 @@ def write_results_to_file(results1, results2):
         print(datetime.datetime.now(), "Error writing to file", e)
         
 
-# Read results from file
+# Read results from raw file
 def read_results_from_files():
     dictionary1 = {}
     dictionary2 = {}
     try:
         import ast
-        file = open("VFS_Globalnews_file.txt", "r")
+        file = open("File_VFS_Globalnews.txt", "r")
         contents = file.read()
         dictionary1 = ast.literal_eval(contents)
         file.close()
 
-        file = open("VFS_Regionalnews_file.txt", "r")
+        file = open("File_VFS_Regionalnews.txt", "r")
         contents = file.read()
         dictionary2 = ast.literal_eval(contents)
         file.close()
@@ -121,7 +123,15 @@ if __name__ == "__main__":
 	        msg = "Check it here:" + url_vfs_news
 	        #push = dev.push_note("VFS News Change @ New Delhi!!", msg)
 
-	    print("----------------------------")
-	    driver.quit()	    
-	    time.sleep(60 * 60) # re-run every 1 hour
+        driver.quit()
 
+        # re-run every x mins
+	    sleep_time_mins = 30 
+        
+        counter = 0
+        while counter < sleep_time_mins:
+            print('-', end = '')
+            counter += 1
+            time.sleep(1*1) # Sleep for 1 min
+        print("")
+        

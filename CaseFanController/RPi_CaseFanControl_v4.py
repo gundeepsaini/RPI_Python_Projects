@@ -1,6 +1,7 @@
 # TODO: Add Intro and code overview 
 
 # v3: Added error handling
+# v4: Check log file size and delete if size > 1MB
 
 import RPi.GPIO as GPIO
 import time
