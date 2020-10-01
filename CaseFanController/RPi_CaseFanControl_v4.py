@@ -7,7 +7,6 @@ import RPi.GPIO as GPIO
 import time
 import subprocess
 
-
 # CPU Temperature Zones
 CPU_Temp_Warm       = 40    # Fan runs at Speed 1
 CPU_Temp_Hot        = 50    # Fan runs at Speed 2
