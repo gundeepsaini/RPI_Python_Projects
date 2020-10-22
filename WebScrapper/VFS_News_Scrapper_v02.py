@@ -60,7 +60,7 @@ def open_browser_load1(url, xpath):
 
 # Write results to file
 def write_results_to_data_file(data, file_no):
-    file_name = "data_file_" + str(file_no) + ".txt"
+    file_name = "File_VFS_News_" + str(file_no) + ".txt"
     try:
         file = open(file_name,"w")
         file.write(str(data))
@@ -72,7 +72,7 @@ def write_results_to_data_file(data, file_no):
     
 # Read results from file
 def read_results_from_data_file_1(file_no):    
-    file_name = "data_file_" + str(file_no) + ".txt"
+    file_name = "File_VFS_News_" + str(file_no) + ".txt"
     try:
         from bs4 import BeautifulSoup    
         file = open(file_name, "r")
@@ -113,7 +113,7 @@ if __name__ == "__main__":
         driver1.quit()
 
         # re-run every x mins
-        recheck_time_mins = 2 
+        recheck_time_mins = 60 
         
         counter = 0        
         while counter < recheck_time_mins:
