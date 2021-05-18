@@ -21,25 +21,52 @@ else
 fi
 
 
-echo "-------------------------------"
+echo "------------1------------------"
+
 echo "--> Change to destination"
 cd /home/pi/Desktop/Github_Repo
-
 echo "--> Pulling from github"
 git clone https://github.com/gundeepsaini/RPI_Python_Projects.git
-echo
 
-echo "-------------------------------"
+echo "------------2------------------"
 
 echo "--> Change to destination"
 cd /home/pi/Desktop/Github_Repo
-
 echo "-->Pulling from github"
 git clone https://github.com/gundeepsaini/CustomROM_SonOff.git
-echo
 
-echo "-------------------------------"
+echo "------------3------------------"
 
+echo "--> Change to destination"
+cd /home/pi/Desktop/Github_Repo
+echo "-->Pulling from github"
+git clone https://github.com/gundeepsaini/EnergyMonitor.git
+
+echo "------------4------------------"
+
+echo "--> Change to destination"
+cd /home/pi/Desktop/Github_Repo
+echo "-->Pulling from github"
+git clone https://github.com/gundeepsaini/PlantWateringSystem.git
+
+echo "------------5------------------"
+
+echo "--> Change to destination"
+cd /home/pi/Desktop/Github_Repo
+echo "-->Pulling from github"
+git clone https://github.com/gundeepsaini/KitchenSensor.git
+
+echo "------------6------------------"
+
+echo "--> Change to destination"
+cd /home/pi/Desktop/Github_Repo
+echo "-->Pulling from github"
+git clone https://github.com/gundeepsaini/BedroomSensor.git
+
+
+
+
+echo "------------END------------------"
 
 read -n 1 -s -r -p "DONE! Press any key to exit"
 
